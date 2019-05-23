@@ -3,13 +3,7 @@ window.onload = function () {
     let right = document.getElementsByClassName('right')
     let header = document.getElementsByTagName("header")
     let main = document.getElementsByClassName('main')
-    // if (document.documentElement.clientWidth>825){
-    header[0].style.height = document.documentElement.clientWidth*0.8+'px'
-    // }
-    window.onresize = function(){
-        header[0].style.height = document.documentElement.clientWidth*0.8+'px'
 
-    }
     right[0].onclick = function () {
         slide(-1)
     }
@@ -24,12 +18,27 @@ window.onload = function () {
     for (let i =0;i<slides.length;i++) {
         slidePos[i]=0
     }
-    console.log(slidePos)
+    for (let i=0;i<slides.length;i++) {
+        if (jQuery(slides[i]).position().left-$(slidee).position().left>slidee.clientWidth){
+            slides[i].style.display='none'
+        } else {
+            slides[i].style.display = 'block'
+        }
+    }
 
 
     function slide(n) {
 
         for (let i=0;i<slides.length;i++) {
+            console.log(jQuery(slides[i]).position().left-$(slidee).position().left>slidee.clientWidth,i)
+            console.log(jQuery(slides[i]).position().left-$(slidee).position().left,'img left',i)
+            console.log(slidee.clientWidth,'width',i)
+
+            if (jQuery(slides[i]).position().left-$(slidee).position().left>slidee.clientWidth){
+                slides[i].style.display='none'
+            } else {
+                slides[i].style.display = 'block'
+            }
             if (n===1){
                 if (slidePos[i]>=0) {
                     slidePos[i]=-400
@@ -45,6 +54,7 @@ window.onload = function () {
                 }
                 slides[i].style.left=slidePos[i]+'px'
             }
+
         }
     }
 }
